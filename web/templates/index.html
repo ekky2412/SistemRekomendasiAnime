@@ -1,0 +1,17 @@
+{% extends "main_template.html" %}
+{% block content %}
+<div class="container row">
+
+    {% for i in anime %}
+    <div class="col-4">
+        <img src="{{ i[2].replace('https://myanimelist.cdn-dena.com/','https://cdn.myanimelist.net/') }}" alt="">
+        <p>{{ i[0] }}</p>
+        <p>{{ i[1] }}</p>
+        <p>{{ i[3] }}</p>
+    </div>
+    {% endfor %}
+
+</div>
+
+
+{% endblock %}
