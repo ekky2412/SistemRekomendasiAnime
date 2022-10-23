@@ -1,17 +1,27 @@
-{% extends "main_template.html" %}
-{% block content %}
-<div class="container row">
-
+{% extends "main_template.html" %} {% block content %}
+<div class="container-fluid">
+  <div class="row">
     {% for i in anime %}
-    <div class="col-4">
-        <img src="{{ i[2].replace('https://myanimelist.cdn-dena.com/','https://cdn.myanimelist.net/') }}" alt="">
-        <p>{{ i[0] }}</p>
-        <p>{{ i[1] }}</p>
-        <p>{{ i[3] }}</p>
+    <div class="col-4 h-50">
+      <div class="card m-5 w-75">
+          <img
+            class="card-img-top text-center"
+            style="width: 100%; object-fit: cover; height: 15vw;"
+            src="{{ i[2].replace('https://myanimelist.cdn-dena.com/','https://cdn.myanimelist.net/') }}"
+            alt=""
+          />
+          <div class="card-body">
+            <p>{{ i[0] }}</p>
+            <p>{{ i[1] }}</p>
+            <p>{{ i[3] }}</p>
+          </div>
+          <div class="card-footer">
+            <a href="https://myanimelist.net/anime/{{i[0]}}" class="btn btn-success">Link</a>
+          </div>
+      </div>
     </div>
     {% endfor %}
-
+  </div>
 </div>
-
 
 {% endblock %}
