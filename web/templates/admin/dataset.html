@@ -8,7 +8,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Dataset User</h1>
+            <h1 class="m-0">Dataset User Anime</h1>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -22,9 +22,40 @@
         <div class="col-12">
             <div class="row">
                 <!-- <div class="w-100"> -->
-                {% for table in score %}
-                {{ table|safe  }}
-                {% endfor %}
+                  <table id="example2" class="table table-bordered">
+                    <thead>
+                      <th>Username</th>
+                      <th>Anime ID</th>
+                      <th>My Score</th>
+                      <th>My Status</th>
+                    </thead>
+                    <tbody>
+                      {% for i in user %}
+                      <tr>
+                        <td>{{i[0]}}</td>
+                        <td>{{i[1]}}</td>
+                        <td>{{i[2]}}</td>
+                        <td>{{i[3]}}</td>
+                      </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+                <div class="row">
+                  <table id="example3" class="table table-bordered">
+                    <thead>
+                      <th>Username</th>
+                      <th>Banyak Rating</th>
+                    </thead>
+                    <tbody>
+                      {% for i in count %}
+                      <tr>
+                        <td>{{i[0]}}</td>
+                        <td>{{i[1]}}</td>
+                      </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
                 </div>
               </div>
               <!-- /.row -->

@@ -8,7 +8,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Hasil Rekomendasi</h1>
+            <h1 class="m-0">Hasil Rekomendasi - {{id_rekomendasi}}</h1>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -17,36 +17,31 @@
 
     <!-- Main content -->
     <section class="content">
-      <div class="container-fluid">
+      <div class="container-fluid w-100">
         <!-- Info boxes -->
         <div class="col-12">
             <div class="row">
                 <table id="example1" class="table table-bordered">
                     <thead>
-                        <th>ID</th>
                         <th>Username</th>
-                        <th>Tipe Rekomendasi</th>
-                        <th>Min K</th>
-                        <th>Max K</th>
-                        <th>Banyak Rating User</th>
-                        <th>Action</th>
+                        <th>Anime ID</th>
+                        <th>Title</th>
+                        <th>Gambar</th>
+                        <th>Rating Prediksi</th>
                     </thead>
                     <tbody>
-                        {% for i in rekomendasi %}
+                        {% for i in rekomendasi%}
                             <tr>
                                 <td>{{i[0]}}</td>
                                 <td>{{i[1]}}</td>
-                                <td>
-                                    {% if "wcf" in i[2] %}
-                                    KNN CF dengan Pembobotan
-                                    {% elif "cf" in i[2] %}
-                                    KNN Collaborative Filtering
-                                    {% endif %}
-                                </td>
-                                <td>{{i[3]}}</td>
+                                <td>{{i[2]}}</td>
+                                <td><img
+                                    class=""
+                                    style="width:50%;"
+                                    src="{{ i[3].replace('https://myanimelist.cdn-dena.com/','https://cdn.myanimelist.net/') }}"
+                                    alt=""
+                                  /></td>
                                 <td>{{i[4]}}</td>
-                                <td>{{i[5]}}</td>
-                                <td><a class="btn btn-success" href="{{ url_for('admin_detail_rekomendasi', id_rekomendasi = i[0]) }}">Detail</a></td>
                             </tr>
                         {% endfor %}
                     </tbody>

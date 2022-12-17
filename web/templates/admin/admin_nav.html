@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dashboard Admin</title>
+  <title>Dashboard Admin - {{title}}</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -72,7 +72,7 @@
               <li class="nav-item">
                 <a href="{{ url_for('admin_dataset') }}" class="nav-link {{ navlink_dataset }}">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Dataset</p>
+                  <p>User Anime</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -82,13 +82,13 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ url_for('admin_hasil_rekomendasi') }}" class="nav-link">
+                <a href="{{ url_for('admin_hasil_rekomendasi') }}" class="nav-link {{ navlink_rekomendasi }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Hasil Rekomendasi</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ url_for('admin_pengujian') }}" class="nav-link">
+                <a href="{{ url_for('admin_pengujian') }}" class="nav-link {{ navlink_pengujian }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Pengujian</p>
                 </a>
@@ -128,6 +128,7 @@
 <script src="{{ url_for('static', filename='plugins/raphael/raphael.min.js') }} "></script>
 <script src="{{ url_for('static', filename='plugins/jquery-mapael/jquery.mapael.min.js') }} "></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js" integrity="sha512-ElRFoEQdI5Ht6kZvyzXhYG9NqjtkmlkfYk0wr6wHxU9JEHakS7UJZNeml5ALk+8IKlU6jDgMabC3vkumRokgJA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
   $(document).ready( function () {
   $('#example1').DataTable({
@@ -139,8 +140,41 @@
         "autoWidth": true,
         "responsive": true,
         "scrollX" : true,
+
         // "scrollCollapse": true,
         // "scrollY" : 400,
+      });
+} );
+</script>
+<script>
+  $(document).ready( function () {
+  $('#example2').DataTable({
+        "paging": true,
+        "lengthChange": false,
+        "searching": true,
+        "ordering": true,
+        "info": true,
+        "autoWidth": true,
+        "responsive": true,
+        // "scrollX" : true,
+        // "scrollCollapse": true,
+        // "scrollY" : 400,
+      });
+} );
+</script>
+<script>
+  $(document).ready( function () {
+  $('#example3').DataTable({
+        "paging": true,
+        "lengthChange": false,
+        "searching": true,
+        "ordering": true,
+        "info": true,
+        "autoWidth": true,
+        "responsive": true,
+        // "scrollX" : true,
+        // "scrollCollapse": true,
+        "scrollY" : 250,
       });
 } );
 </script>

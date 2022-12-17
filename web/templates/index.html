@@ -1,6 +1,22 @@
 {% extends "main_template.html" %} {% block content %}
-<div class="container-fluid">
+<div class="container">
   <div class="row">
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center pt-5">
+        <li class="page-item"><a class="page-link" href="{{ url_for('index', page=pagination[0]-1) }}">Previous</a></li>
+        {% if pagination[0] != 0 %}
+        <li class="page-item"><a class="page-link" href="{{ url_for('index')}}">0</a></li>
+        {% endif %}
+        <li class="page-item"><a class="page-link" href="{{ url_for('index', page=pagination[0])}}">{{pagination[0]}}</a></li>
+        {% if pagination[0] != pagination[2]-1 and pagination[0] != pagination[2] %}
+        <li class="page-item"><a class="page-link" href="{{ url_for('index', page=pagination[1])}}">{{pagination[1]}}</a></li>
+        {%endif%}
+        {% if pagination[0] != pagination[2] %}
+        <li class="page-item"><a class="page-link" href="{{ url_for('index', page=pagination[2])}}">{{pagination[2]}}</a></li>
+        <li class="page-item"><a class="page-link" href="{{ url_for('index', page=pagination[1]) }}">Next</a></li>
+        {% endif %}
+      </ul>
+    </nav>
     {% for i in anime %}
     <div class="col-4 h-50">
       <div class="card m-5 w-75">
@@ -16,8 +32,18 @@
             <p>{{ i[3] }}</p>
           </div>
           <div class="card-footer">
-            <a href="https://myanimelist.net/anime/{{i[0]}}" class="btn btn-success">Link</a>
-          </div>
+            <form class="form-inline" action="{{ url_for('user_input') }}" method="post">
+          {% if session['login'] is defined %} {% if 'user' in session['tipe']
+          %}
+            <input type="hidden" name="anime_id" value="{{i[0]}}">
+            <button type="submit" class="btn btn-primary">Edit Score</button>
+          {%endif%} {%endif%}
+          <a
+          href="https://myanimelist.net/anime/{{i[0]}}"
+          class="btn btn-success ml-2"
+          >Link</a>
+        </form>
+        </div>
       </div>
     </div>
     {% endfor %}

@@ -1,0 +1,59 @@
+{% extends "./main_template.html" %}
+{% block content %}
+<div class="container text-center w-25">
+    <div class="row p-3 m-2">
+        <a class="btn btn-outline-primary mb-2" href="{{url_for('user')}}">Rating mu</a>
+        <a class="btn btn-primary mb-4" href="{{url_for('user_rekomendasi')}}">Rekomendasi Mu</a>
+        
+    </div>
+</div>
+
+<div class="container w-50 text-center">
+    <form action="{{url_for('generate_rekomendasi')}}" method="post">
+        <div class="form-group">
+            <label for="min_k">Minimal User Tetangga</label>
+            <input id="min_k" class="form-control mb-2" name="min_k" type="number" min="1" max="49" required>
+            <button type="submit" class="btn btn-danger">Generate</button>
+        </div>
+    </form>
+</div>
+
+<div class="container">
+    <div class="w-100">
+        {% if user|length %}
+        <table class="table table-bordered" id="example1">
+            <thead>
+                <th>Anime ID</th>
+                <th>Gambar</th>
+                <th>Nama Anime</th>
+                <th>Prediksi Rating</th>
+                <th>Action</th>
+            </thead>
+            <tbody>
+                {% for i in user %}
+                <tr>
+                    <td>{{i[0]}}</td>
+                    <td><img
+                        class=""
+                        style="width:50%;"
+                        src="{{ i[3].replace('https://myanimelist.cdn-dena.com/','https://cdn.myanimelist.net/') }}"
+                        alt=""
+                      /></td>
+                    <td>{{i[2]}}</td>
+                    <td>{{i[1]}}</td>
+                    <td>
+                        <form action="{{ url_for('user_input') }}" method="post">
+                            <input type="hidden" name="anime_id" value="{{i[0]}}">
+                            <button type="submit" class="btn btn-warning">Edit</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <h2> Data Masih Kosong! Silahkan Generate Rekomendasi</h2>
+        {% endif %}
+    </div>
+
+{% endblock %}

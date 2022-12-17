@@ -20,15 +20,17 @@
           <p>{{ i[3] }}</p>
         </div>
         <div class="card-footer">
+            <form class="form-inline" action="{{ url_for('user_input') }}" method="post">
           {% if session['login'] is defined %} {% if 'user' in session['tipe']
           %}
-          <a class="btn btn-primary" href="{{ url_for('user_input') }}">Edit Score</a>
+            <input type="hidden" name="anime_id" value="{{i[0]}}">
+            <button type="submit" class="btn btn-primary">Edit Score</button>
           {%endif%} {%endif%}
           <a
-            href="https://myanimelist.net/anime/{{i[0]}}"
-            class="btn btn-success"
-            >Link</a
-          >
+          href="https://myanimelist.net/anime/{{i[0]}}"
+          class="btn btn-success ml-2"
+          >Link</a>
+        </form>
         </div>
       </div>
     </div>

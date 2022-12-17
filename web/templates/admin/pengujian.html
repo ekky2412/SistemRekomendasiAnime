@@ -1,0 +1,162 @@
+{% extends "admin/admin_nav.html" %}
+{% block content %}
+
+      <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Pengujian</h1>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid mb-3">
+        <!-- Info boxes -->
+        <div class="col-12">
+            <div class="row">
+                <table id="example3" class="table table-bordered">
+                    <thead>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Tipe Rekomendasi</th>
+                        <th>Min K</th>
+                        <th>Max K</th>
+                        <th>MAE</th>
+                        <th>RMSE</th>
+                        <th>Banyak Rating User</th>
+                        <th>Action</th>
+                    </thead>
+                    <tbody>
+                        {% for i in rekomendasi%}
+                            <tr>
+                                <td>{{i[0]}}</td>
+                                <td>{{i[1]}}</td>
+                                <td>
+                                    {% if "wcf" in i[2] %}
+                                    KNN CF dengan Pembobotan
+                                    {% elif "cf" in i[2] %}
+                                    KNN Collaborative Filtering
+                                    {% endif %}
+                                </td>
+                                <td>{{i[3]}}</td>
+                                <td>{{i[4]}}</td>
+                                <td>{{i[5]}}</td>
+                                <td>{{i[6]}}</td>
+                                <td>{{i[7]}}</td>
+                                <td><a class="btn btn-success" href="{{ url_for('admin_detail_rekomendasi', id_rekomendasi = i[0]) }}">Detail</a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                </div>
+                <!-- /.row -->
+              </div>
+        </div>
+
+        <div class="container-fluid w-100">
+            <canvas class="bg-white" id="myChart2"></canvas>
+        </div>
+        
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    
+    const labels1 = {{label1|tojson}}
+    const labels2 = {{label2|tojson}}
+  
+    const data1 = {
+      labels: labels1,
+      datasets: [
+        {
+        label: 'CF MAE',
+        backgroundColor: 'rgb(255, 99, 132)',
+        borderColor: 'rgb(255, 99, 132)',
+        data: {{ cf_mae|tojson }},
+      },
+      {
+        label: 'CF RMSE',
+        backgroundColor: 'rgb(100, 99, 132)',
+        borderColor: 'rgb(100, 99, 132)',
+        data: {{ cf_rmse|tojson }}
+      },
+    ]
+    };
+
+    const data2 = {
+      labels: labels2,
+      datasets: [
+      {
+        label: 'WCF MAE',
+        backgroundColor: 'rgb(100, 200, 255)',
+        borderColor: 'rgb(100, 200, 255)',
+        data: {{ wcf_mae|tojson }}
+      },
+      {
+        label: 'WCF RMSE',
+        backgroundColor: 'rgb(15, 240, 4)',
+        borderColor: 'rgb(15, 240, 4)',
+        data: {{ wcf_rmse|tojson }}
+      }
+    ]
+    };
+  
+    const config1 = {
+      type: 'line',
+      data: data1,
+      options: {
+        plugin: {
+            legend:{
+                position: 'top',
+            },
+            title:{
+                display: true,
+                text: 'Grafik MAE dan RMSE Collaborative Filtering'
+            }
+        },
+        responsive: true,
+      }
+    };
+
+    const config2 = {
+      type: 'line',
+      data: data2,
+      options: {
+        plugin: {
+            legend: {
+                position: 'top',
+                title: {
+                    display: true,
+                    text: 'Grafik MAE dan RMSE Collaborative Filtering'
+                }
+            },
+            
+        },
+        responsive: true,
+      }
+    };
+
+
+  </script>
+<script>
+    const myChart = new Chart(
+      document.getElementById('myChart'),
+      config1
+    );
+
+    const myChart2 = new Chart(
+      document.getElementById('myChart2'),
+      config2
+    );
+  </script>
+    
+{% endblock %}
